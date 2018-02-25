@@ -39,9 +39,9 @@ defmodule Turbolinks do
       status when status in 301..302 ->
         store_location_in_session(conn)
       status when status in 200..299 ->
+        location =  get_session(conn, @session_key)
         conn
-        |> get_session(@session_key)
-        |> set_location_header(conn)
+        |> set_location_header(location)
       _status ->
         conn
     end
